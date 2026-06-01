@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b1020;
+  --card: #141b2d;
+  --text: #e8edf7;
+  --muted: #8b9bb4;
+  --accent: #38bdf8;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes slideInBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+body {
+  background: var(--bg) url('/gradient-bg.svg') no-repeat center/cover fixed;
+  color: var(--text);
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.05) 0%, rgba(139, 92, 246, 0.03) 50%, transparent 100%);
+  pointer-events: none;
+  animation: gradientShift 8s ease-in-out infinite;
+  z-index: -1;
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border border-white/10 bg-[var(--card)] p-6 shadow-lg;
+    background-image: url('/card-pattern.svg');
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .card:hover {
+    border-color: rgba(14, 165, 233, 0.4);
+    box-shadow: 0 8px 32px rgba(14, 165, 233, 0.1);
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 font-medium transition;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: url('/button-gradient.svg') no-repeat center/cover;
+    transition: left 0.3s ease;
+    z-index: -1;
+  }
+
+  .btn:hover::before {
+    left: 0;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-500 text-white disabled:opacity-50;
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+  }
+
+  .btn-primary:hover {
+    @apply opacity-90;
+    box-shadow: 0 6px 25px rgba(14, 165, 233, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    @apply btn border border-white/20;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  }
+
+  .btn-ghost:hover {
+    @apply bg-white/10;
+    border-color: rgba(14, 165, 233, 0.5);
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-sm outline-none focus:border-brand-500;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    transition: all 0.3s ease;
+  }
+
+  .input:focus {
+    box-shadow: 0 0 20px rgba(14, 165, 233, 0.2);
+  }
+
+  /* Utility classes for background images and animations */
+  .bg-glow {
+    position: relative;
+  }
+
+  .bg-glow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-500 via-blue-400 to-purple-500 bg-clip-text text-transparent;
+  }
+
+  .animated-border {
+    @apply relative;
+    background: linear-gradient(#141b2d, #141b2d) padding-box,
+                linear-gradient(135deg, #0ea5e9, #8b5cf6) border-box;
+    border: 1px solid transparent;
+  }
+
+  .glow-border {
+    @apply border border-white/20;
+    box-shadow: inset 0 0 20px rgba(14, 165, 233, 0.1), 0 0 20px rgba(14, 165, 233, 0.1);
+  }
+
+  .glow-border:hover {
+    box-shadow: inset 0 0 30px rgba(14, 165, 233, 0.2), 0 0 30px rgba(14, 165, 233, 0.2);
+  }
+
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+
+  .glass-effect:hover {
+    @apply bg-white/10 border-white/20;
+  }
+}
