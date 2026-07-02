@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 import { CampaignCard } from "@/components/CampaignCard";
+import Web3Login from "@/components/Web3Login";
 
 const statusOptions = ["", "active", "draft", "pending_review"];
 const eligibilityOptions = ["", "public", "whitelist", "erc20", "erc721", "role", "multi"];
@@ -55,6 +56,11 @@ export default function HomePage() {
           <p className="mt-4 max-w-2xl text-sm text-[var(--muted)] animate-fade-in" style={{animationDelay: '0.2s'}}>
             Explore curated airdrops, verify eligibility, and claim NFTs from vetted creators. Use filters to find public, whitelist, or holder-only drops.
           </p>
+
+          {/* Injected Web3 Auth Block */}
+          <div className="mt-8 animate-fade-in" style={{animationDelay: '0.3s'}}>
+            <Web3Login />
+          </div>
         </div>
 
         {/* Search and filter section */}
